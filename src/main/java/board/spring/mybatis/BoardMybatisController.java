@@ -18,6 +18,8 @@ public class BoardMybatisController {
 
 	@RequestMapping(value = "/boardpaginglist")
 	public ModelAndView boardList(@RequestParam(value = "num", required = false, defaultValue = "1") int num) {
+
+		System.out.println("깃허브 수정했다!");
 		ModelAndView mav = new ModelAndView();
 
 		int totalBoardNum = service.totalBoardNumber();
