@@ -1,0 +1,70 @@
+﻿spring2 project
+
+- 컨텐스트명
+jsp -> <%=request.getContextPath()%>
+
+http://ip:port/mybatis/
+
+
+1. web.xml : 4번 파일 설정 <context-param> 포함 수정
+2. servlet-context.xml:<context:component-scan 패키지 추가/그대로
+3. mybatis_board.xml(스프링 mybatis 연동통합설정파일)
+
+===>spring1 프로젝트의
+spring_mybatis.xml 참고 - 수정
+
+===============================
+
+board.spring.mybatis 패키지 
+
+4.board-mapping.xml(sql 매핑파일)
+ / board-config.xml ( 마이바티스설정파일)
+
+==> spring1 프로젝트의
+    emp-mapping.xml / mybatis-config.xml 참고 - 수정
+ 
+
+5. BoardMybatisService 인터페이스 / 구현 클래스 
+6. BoardMybatisDAO
+7. BoardVO.java  
+
+8. BoardMybatisController
+
+/boardpaginglist?pagenum=2
+/boardpaginglist
+게시물페이지별리스트 : 
+게시물작성시간 최근 것부터 정렬하여 pagenum 파라미터 페이지의 5개 출력
+pagenum 파라미터 미입력시 1페이지 자동 설정
+
+5개 게시물 제목 링크( 클릭하면 상세게시물 조회) 
+
+/boardwrite : get 글쓰기 화면 폼 출력
+(제목, 내용, 작성자, 글암호 입력)
+번호:시퀀스, 입력시간:sysdate, 조회수 : 0
+
+
+/boardwrite : post 글쓰기 내용 db board 저장
+ 작성자가 member 테이블에 존재하는지 확인
+   1. 존재한다 글쓴 내용을 board 테이블에 저장하고
+        boardwritesuccess.jsp 뷰 출력
+   2. 존재하지 않는다 회원가입 memberinsert.jsp 뷰 출력
+
+/boardetail 
+1. 조회수 1 증가 sql 실행(update)
+2. 번호 제목 내용 작성자 시간 조회수(select) 
+수정버튼 삭제버튼
+   
+출력 뷰  
+
+/boardupdate:get : 
+수정폼 (미리 출력해주고)- 수정 출력 뷰
+
+/boardupdate : post :
+제목 또는 내용 입력시간 변경
+
+
+/boarddelete?seq=삭제게시물번호
+
+
+
+  

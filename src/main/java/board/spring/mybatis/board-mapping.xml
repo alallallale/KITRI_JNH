@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="allboard" resultType="board">
+		select * from (select * from
+		board order by seq desc)
+	</select>
+
+	<select id="boardpaging" resultType="board"
+		parameterType="int[]">
+		select seq, title, writer, time, viewcount
+		from (select rownum r, seq, title, writer, time, viewcount from
+		(select seq, title,writer, time, viewcount from board order by seq desc))
+		where r between
+		<foreach collection="array" item="r" separator="and">
+			#{r}
+		</foreach>
+	</select>
+	<select id="totalboardnumber" parameterType="int"
+		resultType="int">
+		select count(*) from board
+	</select>
+	<select id="confirmwriter" parameterType="String"
+		resultType="String">
+		select userid from member where userid = #{writer}
+	</select>
+
+
+	<insert id="boardwrite" parameterType="board">
+		insert into board
+		values(board_seq.nextval, #{title}, #{contents}, #{writer}, sysdate,
+		#{password}, 0)
+	</insert>
+
+	<update id="viewcountup" parameterType="int">
+		update board set
+		viewcount = (select viewcount from board where seq = #{seq}) + 1
+		where
+		seq =
+		#{seq}
+	</update>
+
+	<select id="boarddetail" parameterType="int" resultType="board">
+		select * from board where seq = #{seq}
+	</select>
+
+	<update id="boardupdate" parameterType="board">
+		update board set title = #{title}, contents = #{contents}, time = sysdate
+		where seq = #{seq}
+	</update>
+
+	<delete id="boarddelete" parameterType="int">
+		delete board where seq = #{seq}
+	</delete>
+	
+	<select id="confirmboardpassword" parameterType="java.util.Map" resultType="int">
+		select password from board where seq = #{seq} and password = #{password}
+	</select>
+
+</mapper>

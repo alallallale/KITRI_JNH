@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!--0. type alias를 정의 -->
+	<typeAliases>
+		<typeAlias type="board.spring.mybatis.BoardVO" alias="board" /> <!-- alias 등록 -->
+		<typeAlias type="board.spring.mybatis.MemberVO" alias="member"/>
+	</typeAliases>
+
+
+
+</configuration>
